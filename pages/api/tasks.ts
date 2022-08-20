@@ -1,28 +1,11 @@
 // Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import type { NextApiRequest, NextApiResponse } from 'next'
-
-type TaskPriorty = {
-  name: string;
-  value: number;
-}
-
-type Task = {
-  name: string,
-  priorty: 
-}
+import { Task } from '@/models/task';
+import { tasks } from 'data/tasks';
+import type { NextApiRequest, NextApiResponse } from 'next';
 
 export default function handler(
   req: NextApiRequest,
-  res: NextApiResponse<Task[]>
+  res: NextApiResponse<Task[]>,
 ) {
-  const tasks : Task[] = [
-    {
-
-    }
-  ]
-
-
-  res
-  .status(200)
-  .json(tasks);
+  res.status(200).json(tasks);
 }

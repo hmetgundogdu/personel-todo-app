@@ -8,13 +8,16 @@
     "plugin:jsx-a11y/recommended",
     "plugin:react-hooks/recommended",
     "airbnb",
-    "prettier"
+    "prettier",
+    "@typescript-eslint/quotes"
   ],
-  "@typescript-eslint/quotes": [
-    "error",
-    "single",
-    {
-      "allowTemplateLiterals": true
-    }
-  ]
+  "rules": {
+    "@typescript-eslint/quotes": [
+      "error",
+      "single",
+      {
+        "allowTemplateLiterals": true
+      }
+    ]
+  }
 }
