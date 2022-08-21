@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useAppSelector } from '@/store/store';
+import { useAppDispatch, useAppSelector } from '@/store/store';
 
 import { Delete, Edit } from '@mui/icons-material';
 import {
@@ -23,6 +23,9 @@ import { useFormContext } from 'react-hook-form';
 import { TaskListFilterFormType } from './type';
 
 import styles from './tasklist-table.module.scss';
+import { TaskEditModal } from 'widgets/TaskEditModal';
+import { deleteTask, updateTask } from '@/store/slices/task/task.slice';
+import { TaskDeleteModal } from 'widgets/TaskDeleteModal';
 
 export default function TaskListTable() {
   // Form
@@ -30,9 +33,12 @@ export default function TaskListTable() {
   // Watches
   const filters = form.watch(['taskName', 'priorty']);
   // Store
+  const dispatch = useAppDispatch();
   const tasks = useAppSelector((s) => s.tasks.tasks);
   // States
   const [sorting, setSorting] = useState<Sorting<TaskDto> | null>(null);
+  const [toEditTask, setToEditTask] = useState<TaskDto | null>(null);
+  const [toDeleteTask, setToDeleteTask] = useState<TaskDto | null>(null);
   // Memorize
   const sortedTasks = useSorting({
     data: tasks,
@@ -57,17 +63,56 @@ export default function TaskListTable() {
     setSorting(newSorting);
   };
 
+  const handleTaskEditModalSubmit = (task: TaskDto) => {
+    setToEditTask(null);
+    dispatch(updateTask(task));
+  };
+
+  const handleDeleteTaskApprove = () => {
+    if (toDeleteTask) {
+      dispatch(deleteTask(toDeleteTask.id));
+    }
+
+    setToDeleteTask(null);
+  };
+
   return (
     <Grid item xs={12}>
+      {toEditTask !== null && (
+        <TaskEditModal
+          open
+          task={toEditTask}
+          onClose={() => setToEditTask(null)}
+          onTaskSave={handleTaskEditModalSubmit}
+        />
+      )}
+      {toDeleteTask !== null && (
+        <TaskDeleteModal
+          open
+          task={toDeleteTask}
+          onClose={() => setToDeleteTask(null)}
+          onApprove={handleDeleteTaskApprove}
+        />
+      )}
       <TableContainer>
         <Table size="small" className={styles['task-list-table']}>
           <TableHead>
             <TableRow>
               <TableCell onClick={() => handleSortCellClick('name')}>
-                <TableSortLabel>Name</TableSortLabel>
+                <TableSortLabel
+                  active={sorting?.field === 'name'}
+                  direction={sorting?.desc ? 'desc' : 'asc'}
+                >
+                  Name
+                </TableSortLabel>
               </TableCell>
               <TableCell onClick={() => handleSortCellClick('priorityValue')}>
-                <TableSortLabel>Priorty</TableSortLabel>
+                <TableSortLabel
+                  active={sorting?.field === 'priorityValue'}
+                  direction={sorting?.desc ? 'desc' : 'asc'}
+                >
+                  Priorty
+                </TableSortLabel>
               </TableCell>
               <TableCell>Action</TableCell>
             </TableRow>
@@ -83,10 +128,10 @@ export default function TaskListTable() {
                   />
                 </TableCell>
                 <TableCell className={styles['action']}>
-                  <IconButton size="small">
+                  <IconButton size="small" onClick={() => setToEditTask(t)}>
                     <Edit />
                   </IconButton>
-                  <IconButton size="small">
+                  <IconButton size="small" onClick={() => setToDeleteTask(t)}>
                     <Delete />
                   </IconButton>
                 </TableCell>

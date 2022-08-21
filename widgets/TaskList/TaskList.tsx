@@ -1,8 +1,4 @@
-import { useEffect } from 'react';
 import { Grid, Typography } from '@mui/material';
-import { useAppDispatch, useAppSelector } from '@/store/store';
-import { fetchTasksFromApi } from '@/store/slices/task/task.actions';
-
 import TaskListTable from './TaskListTable';
 
 import styles from './tasklist.module.scss';
@@ -11,14 +7,8 @@ import { taskListFilterFormDefaults } from './constants';
 import TaskListFilterForm from './TaskListFilterForm';
 
 export default function TaskList() {
-  // Store
-  const dispatch = useAppDispatch();
   // Form
   const filterForm = useForm({ defaultValues: taskListFilterFormDefaults });
-  // Effects
-  useEffect(() => {
-    dispatch(fetchTasksFromApi());
-  }, []);
 
   return (
     <Grid container gap={1} direction="row">

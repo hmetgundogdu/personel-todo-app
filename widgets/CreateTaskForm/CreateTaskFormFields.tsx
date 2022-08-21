@@ -39,7 +39,7 @@ export default function CreateTaskFormFields({
       </Grid>
       <Grid item flexGrow={1}>
         <Controller
-          name="priorty"
+          name="priority"
           control={control}
           render={({ field, fieldState }) => (
             <SimpleSelect
