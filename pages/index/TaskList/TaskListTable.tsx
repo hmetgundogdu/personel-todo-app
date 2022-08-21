@@ -23,9 +23,10 @@ import { useFormContext } from 'react-hook-form';
 import { TaskListFilterFormType } from './type';
 
 import styles from './tasklist-table.module.scss';
-import { TaskEditModal } from 'widgets/TaskEditModal';
+import { TaskEditModal } from '../TaskEditModal';
 import { deleteTask, updateTask } from '@/store/slices/task/task.slice';
-import { TaskDeleteModal } from 'widgets/TaskDeleteModal';
+import { TaskDeleteModal } from '../TaskDeleteModal';
+import { saveTasksToLocalStorage } from '@/store/slices/task/task.actions';
 
 export default function TaskListTable() {
   // Form
@@ -66,11 +67,13 @@ export default function TaskListTable() {
   const handleTaskEditModalSubmit = (task: TaskDto) => {
     setToEditTask(null);
     dispatch(updateTask(task));
+    dispatch(saveTasksToLocalStorage());
   };
 
   const handleDeleteTaskApprove = () => {
     if (toDeleteTask) {
       dispatch(deleteTask(toDeleteTask.id));
+      dispatch(saveTasksToLocalStorage());
     }
 
     setToDeleteTask(null);

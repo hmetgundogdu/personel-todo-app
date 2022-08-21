@@ -1,6 +1,6 @@
 import { TaskDto } from '@/models/task';
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchTasksFromApi, fetchTasksLocalStorage } from './task.actions';
+import { fetchTasksFromApi, fetchTasksFromLocalStorage } from './task.actions';
 import type { PayloadAction } from '@reduxjs/toolkit';
 import { taskPriorties } from 'data/priority';
 
@@ -38,29 +38,24 @@ const taskSlice = createSlice({
         priorityName: priority.name,
         priorityValue: priority.value,
       });
-
-      localStorage.setItem('tasks', JSON.stringify(state.tasks));
     },
     updateTask(state, action: PayloadAction<TaskDto>) {
       const { payload } = action;
 
       state.tasks = state.tasks.map((t) => (t.id === payload.id ? payload : t));
-      localStorage.setItem('tasks', JSON.stringify(state.tasks));
     },
     deleteTask(state, action: PayloadAction<number>) {
       const taskId = action.payload;
 
       state.tasks = state.tasks.filter((t) => t.id !== taskId);
-      localStorage.setItem('tasks', JSON.stringify(state.tasks));
     },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchTasksFromApi.fulfilled, (state, action) => {
-      localStorage.setItem('tasks', JSON.stringify(state.tasks));
-
       state.tasks = action.payload;
     });
-    builder.addCase(fetchTasksLocalStorage.fulfilled, (state, action) => {
+
+    builder.addCase(fetchTasksFromLocalStorage.fulfilled, (state, action) => {
       state.tasks = action.payload;
     });
   },

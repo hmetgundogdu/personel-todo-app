@@ -1,9 +1,10 @@
 import { TaskDto } from '@/models/task';
+import { RootState } from '@/store/store';
 
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
 export const fetchTasksFromApi = createAsyncThunk(
-  'task/getTasks',
+  'task/fetchTasksFromApi',
   async (__, { rejectWithValue }) => {
     const response = await fetch(`${process.env.baseUrl}/tasks`);
     const isResponseNotReacable = response.ok === false;
@@ -18,8 +19,8 @@ export const fetchTasksFromApi = createAsyncThunk(
   },
 );
 
-export const fetchTasksLocalStorage = createAsyncThunk(
-  'task/getTasksFromLocalStorage',
+export const fetchTasksFromLocalStorage = createAsyncThunk(
+  'task/fetchTasksFromLocalStorage',
   async (__, { rejectWithValue }) => {
     try {
       const data = localStorage.getItem('tasks');
@@ -31,6 +32,20 @@ export const fetchTasksLocalStorage = createAsyncThunk(
       return tasks as TaskDto[];
     } finally {
       rejectWithValue([] as TaskDto[]);
+    }
+  },
+);
+
+export const saveTasksToLocalStorage = createAsyncThunk(
+  'task/saveTasksToLocalStorage',
+  async (__, { getState }) => {
+    const state = getState() as RootState;
+    const tasks = state.tasks.tasks;
+
+    const isLocalStorageUsable = typeof window !== 'undefined';
+
+    if (isLocalStorageUsable) {
+      localStorage.setItem('tasks', JSON.stringify(tasks));
     }
   },
 );

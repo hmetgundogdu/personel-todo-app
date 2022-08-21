@@ -1,10 +1,11 @@
 import type { NextPage } from 'next';
-import { TaskList } from 'widgets/TaskList';
-import { CreateTaskForm } from 'widgets/CreateTaskForm';
+import { TaskList } from './index/TaskList';
+import { CreateTaskForm } from './index/CreateTaskForm';
 import { useEffect } from 'react';
 import {
   fetchTasksFromApi,
-  fetchTasksLocalStorage,
+  fetchTasksFromLocalStorage,
+  saveTasksToLocalStorage,
 } from '@/store/slices/task/task.actions';
 import { useAppDispatch } from '@/store/store';
 
@@ -13,9 +14,13 @@ const Index: NextPage = () => {
   const dispatch = useAppDispatch();
   // Methods
   const loadTask = () => {
-    dispatch(fetchTasksLocalStorage())
+    dispatch(fetchTasksFromLocalStorage())
       .unwrap()
-      .catch(() => dispatch(fetchTasksFromApi()));
+      .catch(() => {
+        dispatch(fetchTasksFromApi())
+          .unwrap()
+          .then(() => dispatch(saveTasksToLocalStorage()));
+      });
   };
   // Effects
   useEffect(() => loadTask(), []);

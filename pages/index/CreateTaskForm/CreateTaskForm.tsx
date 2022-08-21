@@ -3,12 +3,10 @@ import { FormProvider, useForm } from 'react-hook-form';
 import { createTaskFormDefaults, createTaskFormSchema } from './constants';
 import CreateTaskFormFields from './CreateTaskFormFields';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { TaskDto } from '@/models/task';
 import { useAppDispatch } from '@/store/store';
-
 import { CreateTaskFormType } from './types';
 import { addTask } from '@/store/slices/task/task.slice';
-import { useState } from 'react';
+import { saveTasksToLocalStorage } from '@/store/slices/task/task.actions';
 
 export default function CreateTaskForm() {
   // Store
@@ -31,6 +29,8 @@ export default function CreateTaskForm() {
         priorityId: fp.id,
       }),
     );
+
+    dispatch(saveTasksToLocalStorage());
 
     form.reset(createTaskFormDefaults);
   };
