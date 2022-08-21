@@ -1,4 +1,13 @@
 .task-list-table {
+  thead {
+    tr {
+      th {
+        font-weight: bold;
+      }
+    }
+    background-color: #1976d21f;
+  }
+
   tbody {
     tr:nth-of-type(odd) {
       background-color: #f8f8f8;
