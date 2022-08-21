@@ -1,12 +1,15 @@
+import { useEffect } from 'react';
 import type { NextPage } from 'next';
+
 import { TaskList } from './index/TaskList';
 import { CreateTaskForm } from './index/CreateTaskForm';
-import { useEffect } from 'react';
+
 import {
   fetchTasksFromApi,
   fetchTasksFromLocalStorage,
   saveTasksToLocalStorage,
 } from '@/store/slices/task/task.actions';
+
 import { useAppDispatch } from '@/store/store';
 
 const Index: NextPage = () => {
