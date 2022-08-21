@@ -1,0 +1,27 @@
+.app-footer {
+  margin-bottom: 2rem;
+  padding: 1rem 0.2rem;
+  background-color: #f8f8f8;
+
+  .git {
+    border: none;
+    padding: 0.5rem;
+    font-size: 0.7rem;
+    color: #fc684f;
+    font-weight: 600;
+    background-color: #ffe6e2;
+  }
+
+  .repository {
+    color: #bdbdbdf8;
+    font-weight: 500;
+    font-size: 0.7rem;
+    text-decoration: underline;
+  }
+
+  .copyright {
+    font-weight: 500;
+    font-size: 0.7rem;
+    color: #bdbdbdf8;
+  }
+}
