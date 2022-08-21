@@ -1,5 +1,5 @@
 import { taskPriorties } from 'data/priority';
-import { TaskPriority } from '@/models/task';
+import { TaskPriority } from '@/models/taskPriority';
 import { NextApiRequest, NextApiResponse } from 'next';
 
 export default function handler(

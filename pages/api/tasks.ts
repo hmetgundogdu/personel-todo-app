@@ -1,5 +1,4 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import { Task, TaskDto } from '@/models/task';
+import { TaskDto } from '@/models/task';
 import { tasks } from 'data/tasks';
 import type { NextApiRequest, NextApiResponse } from 'next';
 

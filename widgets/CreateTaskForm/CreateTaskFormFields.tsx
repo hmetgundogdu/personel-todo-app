@@ -19,8 +19,8 @@ export default function CreateTaskFormFields({
   const { control } = form;
 
   return (
-    <Grid direction="row" columnGap={2} container alignItems="center">
-      <Grid xs={8}>
+    <Grid columnGap={2} rowGap={2} container alignItems="center">
+      <Grid item xs={12} sm={5} md={6} lg={7}>
         <Controller
           name="name"
           control={control}
@@ -58,7 +58,7 @@ export default function CreateTaskFormFields({
           )}
         />
       </Grid>
-      <Grid item>
+      <Grid xs="auto" item>
         <Button
           variant="contained"
           startIcon={<AddIcon />}

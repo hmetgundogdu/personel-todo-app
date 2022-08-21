@@ -1,4 +1,4 @@
-import { TaskPriority } from '@/models/task';
+import { TaskPriority } from '@/models/taskPriority';
 
 export const taskPriorties: TaskPriority[] = [
   { id: 1, name: 'Acil', value: 3 },

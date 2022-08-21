@@ -15,7 +15,7 @@ export default function TaskListFilterForm() {
 
   return (
     <Grid container item xs={12} gap={2}>
-      <Grid item xs={8} flexGrow={1}>
+      <Grid item xs={12} sm={5} md={6} lg={7} flexGrow={1}>
         <Controller
           name="taskName"
           control={control}
