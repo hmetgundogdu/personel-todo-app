@@ -1,0 +1,11 @@
+.task-list-table {
+  tbody {
+    tr:nth-of-type(odd) {
+      background-color: #f8f8f8;
+    }
+
+    td.action {
+      width: 10%;
+    }
+  }
+}

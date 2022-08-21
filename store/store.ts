@@ -1,4 +1,4 @@
-import taskSlice from './slices/task';
+import taskSlice from './slices/task/task.slice';
 
 import { configureStore } from '@reduxjs/toolkit';
 
@@ -17,8 +17,8 @@ export type RootState = ReturnType<typeof store.getState>;
 
 type AppDispatch = typeof store.dispatch;
 
-export const useDispatch = () => useDispatchBase<AppDispatch>();
+export const useAppDispatch = () => useDispatchBase<AppDispatch>();
 
-export const useSelector = <TSelected = unknown>(
+export const useAppSelector = <TSelected = unknown>(
   selector: (state: RootState) => TSelected,
 ): TSelected => useSelectorBase<RootState, TSelected>(selector);

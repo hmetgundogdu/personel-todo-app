@@ -6,5 +6,5 @@ export const tasks: Task[] = Array(10)
   .map((__, index) => ({
     id: index + 1,
     name: `Do some task done ${index + 1}`,
-    priorty: taskPriorties[index % 3],
+    priority: taskPriorties[index % 3],
   }));

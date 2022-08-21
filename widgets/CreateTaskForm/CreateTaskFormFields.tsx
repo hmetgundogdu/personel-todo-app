@@ -20,7 +20,7 @@ export default function CreateTaskFormFields({
 
   return (
     <Grid direction="row" columnGap={2} container alignItems="center">
-      <Grid flexGrow={1}>
+      <Grid xs={8}>
         <Controller
           name="name"
           control={control}
@@ -37,7 +37,7 @@ export default function CreateTaskFormFields({
           )}
         />
       </Grid>
-      <Grid xs={12} sm={2}>
+      <Grid item flexGrow={1}>
         <Controller
           name="priorty"
           control={control}
@@ -45,6 +45,7 @@ export default function CreateTaskFormFields({
             <SimpleSelect
               {...field}
               fullWidth
+              displayEmpty
               ablePassEmpty
               size="small"
               label="Job Priorty"
@@ -57,7 +58,7 @@ export default function CreateTaskFormFields({
           )}
         />
       </Grid>
-      <Grid>
+      <Grid item>
         <Button
           variant="contained"
           startIcon={<AddIcon />}

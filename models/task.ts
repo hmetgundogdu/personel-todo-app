@@ -1,10 +1,19 @@
-export type TaskPriorty = {
+export type TaskPriority = {
   id: number;
   name: string;
   value: number;
 };
 
 export type Task = {
+  id: number;
   name: string;
-  priorty: TaskPriorty;
+  priority: TaskPriority;
+};
+
+export type TaskDto = {
+  id: number;
+  name: string;
+  priorityId: number;
+  priorityName: string;
+  priorityValue: number;
 };
